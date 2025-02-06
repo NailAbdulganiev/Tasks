@@ -1,8 +1,164 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    @{
+        ViewData["Title"] = "Меню пицц";
+    }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+    <div class="pizza-container">
+        <div class="pizza-tile" id="pizza1">
+            <img src="/images/new-year.jpg" alt="new-year">
+            <h3>Новогодняя</h3>
+            <p>Соус "Гавайский", Сыр моцарелла, Куриная грудка, Мандарины консервированные, Стружка миндаля, Кокосовая стружка.</p>
+            <div class="size-selector">
+                <input type="radio" id="size_new-year_30" name="size_new-year" value="30" checked>
+                <label for="size_new-year_30">30 см</label>
+                <input type="radio" id="size_new-year_40" name="size_new-year" value="40">
+                <label for="size_new-year_40">40 см</label>
+                <input type="radio" id="size_new-year_60" name="size_new-year" value="60">
+                <label for="size_new-year_60">60 см</label>
+            </div>
+            <div class="dough-selector">
+                <input type="radio" id="dough_new-year_thin" name="dough_new-year" value="thin" checked>
+                <label for="dough_new-year_thin">Традиционное</label>
+                <input type="radio" id="dough_new-year_thick" name="dough_new-year" value="thick">
+                <label for="dough_new-year_thick">Толстое</label>
+            </div>
+            <div class="price-weight">
+                <span class="price">550₽</span>
+                <span class="weight">670 гр</span>
+            </div>
+            <button>В корзину</button>
+        </div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+        <div class="pizza-tile" id="pizza2">
+            <img src="/images/xxxl.jpg" alt="xxxl">
+            <h3>XXXL</h3>
+            <p>Сыр моцарелла, Соус "1000 островов", Куриный рулет, Ветчина, Колбаски охотничьи, Бекон, Сервелат, Огурцы маринованные, Томаты черри, Маслины, Лук маринованный.</p>
+            <div class="size-selector">
+                <input type="radio" id="size_xxxl_30" name="size_xxxl" value="30" checked>
+                <label for="size_xxxl_30">30 см</label>
+                <input type="radio" id="size_xxxl_40" name="size_xxxl" value="40">
+                <label for="size_xxxl_40">40 см</label>
+                <input type="radio" id="size_xxxl_60" name="size_xxxl" value="60">
+                <label for="size_xxxl_60">60 см</label>
+            </div>
+            <div class="dough-selector">
+                <input type="radio" id="dough_xxxl_thin" name="dough_xxxl" value="thin" checked>
+                <label for="dough_xxxl_thin">Традиционное</label>
+                <input type="radio" id="dough_xxxl_thick" name="dough_xxxl" value="thick">
+                <label for="dough_xxxl_thick">Толстое</label>
+            </div>
+            <div class="price-weight">
+                <span class="price">570₽</span>
+                <span class="weight">740 гр</span>
+            </div>
+            <button>В корзину</button>
+        </div>
+
+        <div class="pizza-tile" id="pizza3">
+            <img src="/images/cheese.jpg" alt="cheese">
+            <h3>Сырная</h3>
+            <p>Сыр моцарелла, Сливочный сыр, Соус "Кальяри", Сыр фетаки, Сыр с голубой плесенью, Сыр пармезан.</p>
+            <div class="size-selector">
+                <input type="radio" id="size_cheese_30" name="size_cheese" value="30" checked>
+                <label for="size_cheese_30">30 см</label>
+                <input type="radio" id="size_cheese_40" name="size_cheese" value="40">
+                <label for="size_cheese_40">40 см</label>
+                <input type="radio" id="size_cheese_60" name="size_cheese" value="60">
+                <label for="size_cheese_60">60 см</label>
+            </div>
+            <div class="dough-selector">
+                <input type="radio" id="dough_cheese_thin" name="dough_cheese" value="thin" checked>
+                <label for="dough_cheese_thin">Традиционное</label>
+                <input type="radio" id="dough_cheese_thick" name="dough_cheese" value="thick">
+                <label for="dough_cheese_thick">Толстое</label>
+            </div>
+            <div class="price-weight">
+                <span class="price">570₽</span>
+                <span class="weight">550 гр</span>
+            </div>
+            <button>В корзину</button>
+        </div>
+
+        <div class="pizza-tile" id="pizza4">
+            <img src="/images/cagliari.jpg" alt="cagliari">
+            <h3>Кальяри</h3>
+            <p>Соус "Кальяри", Креветки тигровые, Куриная грудка, Сыр моцарелла, Ананас, Соус "Унаги", Кунжут.</p>
+            <div class="size-selector">
+                <input type="radio" id="size_cagliari_30" name="size_cagliari" value="30" checked>
+                <label for="size_cagliari_30">30 см</label>
+                <input type="radio" id="size_cagliari_40" name="size_cagliari" value="40">
+                <label for="size_cagliari_40">40 см</label>
+                <input type="radio" id="size_cagliari_60" name="size_cagliari" value="60">
+                <label for="size_cagliari_60">60 см</label>
+            </div>
+            <div class="dough-selector">
+                <input type="radio" id="dough_cagliari_thin" name="dough_cagliari" value="thin" checked>
+                <label for="dough_cagliari_thin">Традиционное</label>
+                <input type="radio" id="dough_cagliari_thick" name="dough_cagliari" value="thick">
+                <label for="dough_cagliari_thick">Толстое</label>
+            </div>
+            <div class="price-weight">
+                <span class="price">540₽</span>
+                <span class="weight">560 гр</span>
+            </div>
+            <button>В корзину</button>
+        </div>
+
+        <div class="pizza-tile" id="pizza5">
+            <img src="/images/cezar.jpg" alt="cesar">
+            <h3>Пицца-Cesar</h3>
+            <p>Ветчина, Куриная грудка, Соус "Кальяри", Сыр моцарелла, Салат айсберг, Сыр пармезан, Соус "Спайси".</p>
+            <div class="size-selector">
+                <input type="radio" id="size_cesar_30" name="size_cesar" value="30" checked>
+                <label for="size_cesar_30">30 см</label>
+                <input type="radio" id="size_cesar_40" name="size_cesar" value="40">
+                <label for="size_cesar_40">40 см</label>
+                <input type="radio" id="size_cesar_60" name="size_cesar" value="60">
+                <label for="size_cesar_60">60 см</label>
+            </div>
+            <div class="dough-selector">
+                <input type="radio" id="dough_cesar_thin" name="dough_cesar" value="thin" checked>
+                <label for="dough_cesar_thin">Традиционное</label>
+                <input type="radio" id="dough_cesar_thick" name="dough_cesar" value="thick">
+                <label for="dough_cesar_thick">Толстое</label>
+            </div>
+            <div class="price-weight">
+                <span class="price">525₽</span>
+                <span class="weight">640 гр</span>
+            </div>
+            <button>В корзину</button>
+        </div>
+
+        <div class="pizza-tile" id="pizza6">
+            <img src="/images/peperoni.jpg" alt="peperoni">
+            <h3>Пепперони</h3>
+            <p>Соус "Томатный", Сыр моцарелла, Пепперони.</p>
+            <div class="size-selector">
+                <input type="radio" id="size_peperoni_30" name="size_peperoni" value="30" checked>
+                <label for="size_peperoni_30">30 см</label>
+                <input type="radio" id="size_peperoni_40" name="size_peperoni" value="40">
+                <label for="size_peperoni_40">40 см</label>
+                <input type="radio" id="size_peperoni_60" name="size_peperoni" value="60">
+                <label for="size_peperoni_60">60 см</label>
+            </div>
+            <div class="dough-selector">
+                <input type="radio" id="dough_peperoni_thin" name="dough_peperoni" value="thin" checked>
+                <label for="dough_peperoni_thin">Традиционное</label>
+                <input type="radio" id="dough_peperoni_thick" name="dough_peperoni" value="thick">
+                <label for="dough_peperoni_thick">Толстое</label>
+            </div>
+            <div class="price-weight">
+                <span class="price">475₽</span>
+                <span class="weight">410 гр</span>
+            </div>
+            <button>В корзину</button>
+        </div>
+    </div>
+</body>
+</html>
