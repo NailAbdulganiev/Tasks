@@ -1,18 +1,40 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using Task3.Models;
 using Task3.Repositories;
 
 namespace Task3.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly PizzaRepository _pizzaRepository = new PizzaRepository();
+        private readonly IPizzaRepository _pizzaRepository;
+
+        public HomeController(IPizzaRepository pizzaRepository)
+        {
+            _pizzaRepository = pizzaRepository;
+        }
 
         public IActionResult Index()
         {
             var pizzas = _pizzaRepository.GetAllPizzas();
             return View(pizzas);
+        }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult GetPizzas()
+        {
+            try
+            {
+                var pizzas = _pizzaRepository.GetAllPizzas();
+                return Json(pizzas);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
         }
     }
 }

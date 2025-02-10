@@ -1,6 +1,111 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="pizza-container" id="pizzaContainer"></div>
+
+@section Scripts {
+    <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                loadPizzasFromServer();
+        });
+
+        function loadPizzasFromServer() {
+            const container = document.querySelector(".pizza-container");
+            if (!container) {
+                console.error("Контейнер .pizza-container не найден!");
+                return;
+            }
+
+            container.innerHTML = '<div class="loading">Загрузка меню...</div>';
+
+            $.ajax({
+                url: '/Home/GetPizzas',
+                type: 'GET',
+                dataType: 'json',
+                success: function(pizzas) {
+                    container.innerHTML = '';
+                    generatePizzaTiles(pizzas);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Ошибка загрузки данных:", error);
+                    container.innerHTML = '<div class="error">Ошибка загрузки меню. Пожалуйста, попробуйте позже.</div>';
+                }
+            });
+        }
+
+        function generatePizzaTiles(pizzas) {
+            const container = document.querySelector(".pizza-container");
+            container.innerHTML = "";
+
+            pizzas.forEach((pizza, index) => {
+                const pizzaHtml = `
+                    <div class="pizza-tile" id="pizza${pizza.id}">
+                        <img src="../${pizza.imageUrl}" alt="${pizza.name}">
+                        <h3>${pizza.name}</h3>
+                        <p>${pizza.description}</p>
+                        <div class="size-selector">
+                            ${generateSizeOptions(pizza, index)}
+                        </div>
+                        <div class="dough-selector">
+                            ${generateDoughOptions(pizza.doughTypes, index)}
+                        </div>
+                        <div class="price-weight">
+                            <span class="price">${getFirstPrice(pizza.sizeToPrice)}₽</span>
+                            <span class="weight">${getFirstWeight(pizza.sizeToWeight)} гр</span>
+                        </div>
+                        <button>В корзину</button>
+                    </div>
+                `;
+                container.innerHTML += pizzaHtml;
+            });
+
+            initSizeChangeHandlers();
+        }
+
+        function generateSizeOptions(pizza, index) {
+            return [30, 40, 60].map(size => {
+                const isAvailable = pizza.sizeToPrice.hasOwnProperty(size);
+                return `
+                    <input type="radio" id="size_${index}_${size}" name="size_${index}" value="${size}"
+                           ${isAvailable ? '' : 'disabled'}
+                           data-price="${pizza.sizeToPrice[size] || 0}"
+                           data-weight="${pizza.sizeToWeight[size] || 0}">
+                    <label for="size_${index}_${size}" style="${!isAvailable ? 'color: gray; opacity: 0.5; pointer-events: none; cursor: not-allowed;' : ''}">
+                        ${size} см
+                    </label>
+                `;
+            }).join("");
+        }
+
+        function generateDoughOptions(doughTypes, index) {
+            return doughTypes.map((dough, doughIndex) => `
+                <input type="radio" id="dough_${index}_${doughIndex}" name="dough_${index}" value="${dough}" ${doughIndex === 0 ? 'checked' : ''}>
+                <label for="dough_${index}_${doughIndex}">${dough}</label>
+            `).join("");
+        }
+
+        function initSizeChangeHandlers() {
+            document.querySelectorAll(".size-selector input").forEach(input => {
+                input.addEventListener("change", function() {
+                    const price = this.getAttribute('data-price');
+                    const weight = this.getAttribute('data-weight');
+                    const tile = this.closest('.pizza-tile');
+
+                    tile.querySelector(".price").textContent = `${price}₽`;
+                    tile.querySelector(".weight").textContent = `${weight} гр`;
+                });
+            });
+        }
+
+        function getFirstPrice(sizeToPrice) {
+            const sizes = Object.keys(sizeToPrice);
+            return sizes.length > 0 ? sizeToPrice[sizes[0]] : 0;
+        }
+
+        function getFirstWeight(sizeToWeight) {
+            const sizes = Object.keys(sizeToWeight);
+            return sizes.length > 0 ? sizeToWeight[sizes[0]] : 0;
+        }
+    </script>
+}
