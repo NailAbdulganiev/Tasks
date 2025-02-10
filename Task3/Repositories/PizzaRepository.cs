@@ -14,7 +14,6 @@ namespace Task3.Repositories
                 ImageUrl = "images/new-year.jpg",
                 SizeToPrice = new Dictionary<int, int>{ { 30, 550 }, { 40, 740 }, { 60, 1420 } },
                 SizeToWeight = new Dictionary<int, int> { { 30, 670 }, { 40, 1220 }, { 60, 1420 } },
-                DoughTypes = ["Традиционное"]
             },
             new PizzaModel
             {
@@ -24,7 +23,6 @@ namespace Task3.Repositories
                 ImageUrl = "images/xxxl.jpg",
                 SizeToPrice = new Dictionary<int, int>{ { 30, 570 }, { 40, 820 } },
                 SizeToWeight = new Dictionary<int, int> { { 30, 740 }, { 40, 1440 } },
-                DoughTypes = ["Традиционное"]
             },
             new PizzaModel
             {
@@ -34,7 +32,6 @@ namespace Task3.Repositories
                 ImageUrl = "images/cheese.jpg",
                 SizeToPrice = new Dictionary<int, int>{ { 30, 570 }, { 40, 810 }, { 60, 1545 } },
                 SizeToWeight = new Dictionary<int, int> { { 30, 550 }, { 40, 1000 }, { 60, 2390 } },
-                DoughTypes = ["Традиционное"]
             },
             new PizzaModel
             {
@@ -44,7 +41,6 @@ namespace Task3.Repositories
                 ImageUrl = "images/cagliari.jpg",
                 SizeToPrice = new Dictionary<int, int>{ { 30, 540 }, { 40, 770 }, { 60, 1620 } },
                 SizeToWeight = new Dictionary<int, int> { { 30, 560 }, { 40, 1000 }, { 60, 2370 } },
-                DoughTypes = ["Толстое"]
             },
             new PizzaModel
             {
@@ -54,7 +50,6 @@ namespace Task3.Repositories
                 ImageUrl = "images/cezar.jpg",
                 SizeToPrice = new Dictionary<int, int>{ { 30, 525 }, { 40, 715 }, { 60, 1470 } },
                 SizeToWeight = new Dictionary<int, int> { { 30, 640 }, { 40, 1060 }, { 60, 2380 } },
-                DoughTypes = ["Традиционное"]
             },
             new PizzaModel
             {
@@ -64,7 +59,6 @@ namespace Task3.Repositories
                 ImageUrl = "images/peperoni.jpg",
                 SizeToPrice = new Dictionary<int, int>{ { 30, 475 }, { 40, 620 }, { 60, 1260 } },
                 SizeToWeight = new Dictionary<int, int> { { 30, 410 }, { 40, 700 }, { 60, 1840 } },
-                DoughTypes = ["Толстое"]
             }
         };
 

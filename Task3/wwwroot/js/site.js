@@ -1,4 +1,12 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.size-selector input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', function () {
+            const pizzaTile = this.closest('.pizza-tile');
+            const priceElement = pizzaTile.querySelector('.price');
+            const weightElement = pizzaTile.querySelector('.weight');
 
-// Write your JavaScript code.
+            priceElement.textContent = `${this.dataset.price}₽`;
+            weightElement.textContent = `${this.dataset.weight} гр`;
+        });
+    });
+});
