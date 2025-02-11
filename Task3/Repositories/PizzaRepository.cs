@@ -66,5 +66,10 @@ namespace Task3.Repositories
         {
             return pizzas;
         }
+
+        public PizzaModel FindById(int id)
+        {
+            return pizzas.FirstOrDefault(p => p.Id == id);
+        }
     }
 }
