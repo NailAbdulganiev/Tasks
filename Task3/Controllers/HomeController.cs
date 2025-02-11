@@ -36,5 +36,18 @@ namespace Task3.Controllers
                 return StatusCode(500, new { error = ex.Message });
             }
         }
+
+        public IActionResult Detail(int id)
+        {
+            PizzaRepository pizzaRepository = new PizzaRepository();
+            var pizza = pizzaRepository.FindById(id);
+
+            if (pizza == null) 
+            {
+                return NotFound();
+            }
+
+            return View(pizza);
+        }
     }
 }
