@@ -41,8 +41,10 @@
             pizzas.forEach((pizza, index) => {
                 const pizzaHtml = `
                     <div class="pizza-tile" id="pizza${pizza.id}">
-                        <img src="../${pizza.imageUrl}" alt="${pizza.name}">
-                        <h3>${pizza.name}</h3>
+                        <img src="../../${pizza.imageUrl}" alt="${pizza.name}">
+                        <a href="/Home/Detail/${pizza.id}" class="pizza-title-link">
+                            <h3>${pizza.name}</h3>
+                        </a>
                         <p>${pizza.description}</p>
                         <div class="size-selector">
                             ${generateSizeOptions(pizza, index)}
@@ -108,4 +110,32 @@
             return sizes.length > 0 ? sizeToWeight[sizes[0]] : 0;
         }
     </script>
+
+    <style>
+        .pizza-title-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            text-align: center;
+        }
+
+            .pizza-title-link h3 {
+                transition: all 0.3s ease;
+                margin: 10px 0;
+            }
+
+            .pizza-title-link:hover h3 {
+                color: #27ae60;
+                transform: scale(1.05);
+            }
+
+        .pizza-tile img {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: block;
+        }
+    </style>
 }

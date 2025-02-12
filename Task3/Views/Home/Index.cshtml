@@ -8,7 +8,9 @@
 
         <div class="pizza-tile" id="pizza_@i">
             <img src="@pizza.ImageUrl" alt="@pizza.Name">
-            <h3>@pizza.Name</h3>
+            <a href="@Url.Action("Detail", "Home", new { id = pizza.Id })" class="pizza-title-link">
+                <h3>@pizza.Name</h3>
+            </a>
             <p>@pizza.Description</p>
 
             <div class="size-selector">
@@ -43,4 +45,21 @@
     }
 </div>
 
-        
+<style>
+    .pizza-title-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        text-align: center;
+    }
+
+        .pizza-title-link h3 {
+            transition: all 0.3s ease;
+            margin: 10px 0;
+        }
+
+        .pizza-title-link:hover h3 {
+            color: #27ae60;
+            transform: scale(1.05);
+        }
+</style>        

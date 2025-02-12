@@ -13,7 +13,7 @@ namespace Task3.Repositories
                 Description = "Соус 'Гавайский', Сыр моцарелла, Куриная грудка, Мандарины консервированные, Стружка миндаля, Кокосовая стружка.",
                 ImageUrl = "images/new-year.jpg",
                 SizeToPrice = new Dictionary<int, int>{ { 30, 550 }, { 40, 740 }, { 60, 1420 } },
-                SizeToWeight = new Dictionary<int, int> { { 30, 670 }, { 40, 1220 }, { 60, 1420 } },
+                SizeToWeight = new Dictionary<int, int> { { 30, 670 }, { 40, 1220 }, { 60, 2500 } },
             },
             new PizzaModel
             {
