@@ -1,0 +1,65 @@
+﻿@model List<PizzaModel>
+
+<div class="pizza-container">
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        var pizza = Model[i];
+        var firstAvailableSize = pizza.SizeToPrice.Keys.First();
+
+        <div class="pizza-tile" id="pizza_@i">
+            <img src="@pizza.ImageUrl" alt="@pizza.Name" class="pizza-image clickable-image" data-pizza-id=@i>
+            <a href="@Url.Action("Detail", "Home", new { id = pizza.Id })" class="pizza-title-link">
+                <h3>@pizza.Name</h3>
+            </a>
+            <p>@pizza.Description</p>
+
+            <div class="size-selector">
+                @foreach (var size in new[] { 30, 40, 60 })
+                {
+                    var isAvailable = pizza.SizeToPrice.ContainsKey(size);
+                    
+                    <input type="radio" id="size_@i@size" name="size_@i" value="@size" data-price="@(isAvailable ? pizza.SizeToPrice[size] : 0)" 
+                    data-weight="@(isAvailable ? pizza.SizeToWeight[size] : 0)" @(isAvailable ? "" : "disabled")  @(size == firstAvailableSize ? "checked" : "") />
+                    <label for="size_@i@size" 
+                           style="@(!isAvailable ? "color:gray;opacity:0.5;pointer-events:none" : "")">
+                        @size см
+                    </label>
+                }
+            </div>
+
+            <div class="dough-selector">
+                @foreach (var dough in pizza.DoughTypes)
+                {
+                    <input type="radio" id="dough_@i@dough" name="dough_@i" value="@dough" @(dough == pizza.DoughTypes.First() ? "checked" : "")>
+                    <label for="dough_@i@dough">@dough</label>
+                }
+            </div>
+
+            <div class="price-weight">
+                <span class="price">@pizza.SizeToPrice[firstAvailableSize]₽</span>
+                <span class="weight">@pizza.SizeToWeight[firstAvailableSize] гр</span>
+            </div>
+
+            <button>В корзину</button>
+        </div>
+    }
+</div>
+
+<style>
+    .pizza-title-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        text-align: center;
+    }
+
+        .pizza-title-link h3 {
+            transition: all 0.3s ease;
+            margin: 10px 0;
+        }
+
+        .pizza-title-link:hover h3 {
+            color: #27ae60;
+            transform: scale(1.05);
+        }
+</style>        
