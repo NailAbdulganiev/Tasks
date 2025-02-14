@@ -41,7 +41,7 @@
             pizzas.forEach((pizza, index) => {
                 const pizzaHtml = `
                     <div class="pizza-tile" id="pizza${pizza.id}">
-                        <img src="../../${pizza.imageUrl}" alt="${pizza.name}">
+                        <img src="../../${pizza.imageUrl}" alt="${pizza.name}" class="pizza-image clickable-image" data-pizza-id="${pizza.id}">
                         <a href="/Home/Detail/${pizza.id}" class="pizza-title-link">
                             <h3>${pizza.name}</h3>
                         </a>
@@ -60,6 +60,11 @@
                     </div>
                 `;
                 container.innerHTML += pizzaHtml;
+            });
+
+            $(document).on('click', '.clickable-image', function() {
+                const pizzaId = $(this).data('pizza-id');
+                window.location.href = `/Home/Detail/${pizzaId}`;
             });
 
             initSizeChangeHandlers();
@@ -137,5 +142,6 @@
             margin: 0 auto 15px;
             display: block;
         }
+        
     </style>
 }

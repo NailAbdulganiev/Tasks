@@ -8,7 +8,7 @@ namespace Task3.Repositories
         {
             new PizzaModel
             {
-                Id = 1,
+                Id = 0,
                 Name = "Новогодняя",
                 Description = "Соус 'Гавайский', Сыр моцарелла, Куриная грудка, Мандарины консервированные, Стружка миндаля, Кокосовая стружка.",
                 ImageUrl = "images/new-year.jpg",
@@ -17,7 +17,7 @@ namespace Task3.Repositories
             },
             new PizzaModel
             {
-                Id = 2,
+                Id = 1,
                 Name = "XXXL",
                 Description = "Сыр моцарелла, Соус '1000 островов', Куриный рулет, Ветчина, Колбаски охотничьи, Бекон, Сервелат, Огурцы маринованные, Томаты черри, Маслины, Лук маринованный.",
                 ImageUrl = "images/xxxl.jpg",
@@ -26,7 +26,7 @@ namespace Task3.Repositories
             },
             new PizzaModel
             {
-                Id = 3,
+                Id = 2,
                 Name = "Сырная",
                 Description = "Сыр моцарелла, Сливочный сыр, Соус 'Кальяри', Сыр фетаки, Сыр с голубой плесенью, Сыр пармезан.",
                 ImageUrl = "images/cheese.jpg",
@@ -35,7 +35,7 @@ namespace Task3.Repositories
             },
             new PizzaModel
             {
-                Id = 4,
+                Id = 3,
                 Name = "Кальяри",
                 Description = "Соус 'Кальяри', Креветки, Куриная грудка, Сыр моцарелла, Ананас, Соус 'Унаги', Кунжут.",
                 ImageUrl = "images/cagliari.jpg",
@@ -44,7 +44,7 @@ namespace Task3.Repositories
             },
             new PizzaModel
             {
-                Id = 5,
+                Id = 4,
                 Name = "Цезарь",
                 Description = "Ветчина, Куриная грудка, Соус 'Кальяри', Сыр моцарелла, Салат айсберг, Сыр пармезан, Соус 'Спайси'.",
                 ImageUrl = "images/cezar.jpg",
@@ -53,7 +53,7 @@ namespace Task3.Repositories
             },
             new PizzaModel
             {
-                Id = 6,
+                Id = 5,
                 Name = "Пепперони",
                 Description = "Соус 'Томатный', Сыр моцарелла, Пепперони.",
                 ImageUrl = "images/peperoni.jpg",

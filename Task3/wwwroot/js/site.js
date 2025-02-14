@@ -10,3 +10,9 @@
         });
     });
 });
+
+
+$(document).on('click', '.clickable-image', function () {
+    const pizzaId = $(this).data('pizza-id');
+    window.location.href = `/Home/Detail/${pizzaId}`;
+});
