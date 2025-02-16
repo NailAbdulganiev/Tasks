@@ -55,5 +55,17 @@ namespace Task3.Controllers
             return View(pizza);
         }
 
+        [HttpGet]
+        public IActionResult GetPizzaById(int id)
+        {
+            var pizza = _pizzaRepository.FindById(id);
+
+            if (pizza == null)
+            {
+                return NotFound();
+            }
+            return Json(pizza);
+        }
+
     }
 }

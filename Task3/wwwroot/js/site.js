@@ -11,28 +11,62 @@
     });
 });
 
-
-$(document).on('click', '.clickable-image', function () {
-    const pizzaId = $(this).data('pizza-id');
-    window.location.href = `/Home/Detail/${pizzaId}`;
-});
-
 $(document).ready(function () {
+    function ShowPizza(pizza) {
+        $("#pizzaModalLabel").text(pizza.name);
+        $("#modalPizzaImage").attr("src", pizza.imageUrl);
+        $("#modalPizzaDescription").text(pizza.description);
+        $("#modalPizzaPrice").text(pizza.price);
+        $("#modalPizzaWeight").text(pizza.weight);
+        $("#modalPizzaDough").text(pizza.dough);
+
+        $("#pizzaModal").modal("show");
+    }
+
     $(document).on("click", ".pizza-title", function () {
         var pizzaTile = $(this).closest(".pizza-tile");
 
-        var pizzaName = $(this).text();
-        var pizzaImage = pizzaTile.find(".pizza-image").attr("src");
-        var pizzaDescription = pizzaTile.find(".pizza-description").text();
-        var pizzaPrice = pizzaTile.find(".price").text();
-        var pizzaWeight = pizzaTile.find(".weight").text();
+        var pizza = {
+            name: $(this).text(),
+            imageUrl: pizzaTile.find(".pizza-image").attr("src"),
+            description: pizzaTile.find(".pizza-description").text(),
+            price: pizzaTile.find(".price").text(),
+            weight: pizzaTile.find(".weight").text(),
+            dough: pizzaTile.find(".dough-selector input:checked").val()
+        };
 
-        $("#pizzaModalLabel").text(pizzaName);
-        $("#modalPizzaImage").attr("src", pizzaImage);
-        $("#modalPizzaDescription").text(pizzaDescription);
-        $("#modalPizzaPrice").text(pizzaPrice);
-        $("#modalPizzaWeight").text(pizzaWeight);
+        ShowPizza(pizza);
+    });
 
-        $("#pizzaModal").modal("show");
+    $(document).on("click", ".clickable-image", function () {
+        var pizzaTile = $(this).closest(".pizza-tile");
+        var pizzaId = $(this).data("pizza-id");
+        var selectedSize = pizzaTile.find(".size-selector input:checked").val();
+        var selectedDough = pizzaTile.find(".dough-selector input:checked").val();
+
+        $.ajax({
+            url: "/Home/GetPizzaById",
+            type: "GET",
+            data: { id: pizzaId },
+            dataType: "json",
+            success: function (pizza) {
+                if (!selectedSize) {
+                    selectedSize = Object.keys(pizza.sizeToPrice)[0];
+                }
+                var updatedPizza = {
+                    name: pizza.name,
+                    imageUrl: pizza.imageUrl,
+                    description: pizza.description,
+                    price: pizza.sizeToPrice[selectedSize] + "₽",
+                    weight: pizza.sizeToWeight[selectedSize] + " гр",
+                    dough: selectedDough || pizza.doughTypes[0]
+                };
+
+                ShowPizza(updatedPizza);
+            },
+            error: function () {
+                alert("Ошибка при загрузке данных о пицце.");
+            }
+        });
     });
 });
