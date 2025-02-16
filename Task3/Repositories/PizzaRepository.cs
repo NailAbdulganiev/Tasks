@@ -1,9 +1,12 @@
-﻿using Task3.Models;
+﻿using NLog;
+using Task3.Models;
 
 namespace Task3.Repositories
 {
     public class PizzaRepository : IPizzaRepository
     {
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+
         private readonly List<PizzaModel> pizzas = new List<PizzaModel>()
         {
             new PizzaModel
@@ -64,12 +67,36 @@ namespace Task3.Repositories
 
         public List<PizzaModel> GetAllPizzas()
         {
-            return pizzas;
+            try
+            {
+                _logger.Info("Запрос на получение всех пицц.");
+                return pizzas;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Ошибка при получении списка пицц.");
+                throw;
+            }
         }
 
         public PizzaModel FindById(int id)
         {
-            return pizzas.FirstOrDefault(p => p.Id == id);
+            try
+            {
+                _logger.Info($"Поиск пиццы с ID: {id}");
+                var pizza = pizzas.FirstOrDefault(p => p.Id == id);
+
+                if (pizza == null)
+                {
+                    _logger.Warn($"Пицца с ID {id} не найдена.");
+                }
+                return pizza;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, $"Ошибка при поиске пиццы с ID {id}");
+                throw;
+            }
         }
     }
 }
