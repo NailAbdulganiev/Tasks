@@ -166,3 +166,12 @@ button:hover {
 input[type="radio"] {
     display: none;
 }
+
+.clickable-image {
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+    .clickable-image:hover {
+        transform: scale(1.03);
+    }
