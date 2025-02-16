@@ -8,8 +8,8 @@
 
         <div class="pizza-tile" id="pizza_@i">
             <img src="@Url.Content(pizza.ImageUrl)" alt="@pizza.Name" class="pizza-image clickable-image" data-pizza-id=@i>
-            <h3>@pizza.Name</h3>
-            <p>@pizza.Description</p>
+            <h3 class="pizza-title" data-index="@i">@pizza.Name</h3>
+            <p class="pizza-description">@pizza.Description</p>
 
             <div class="size-selector">
                 @foreach (var size in new[] { 30, 40, 60 })
@@ -43,21 +43,39 @@
     }
 </div>
 
+<div class="modal fade" id="pizzaModal" tabindex="-1" aria-labelledby="pizzaModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pizzaModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <img id="modalPizzaImage" src="" alt="" class="img-fluid mb-3">
+                <p id="modalPizzaDescription"></p>
+                <p><strong>Цена:</strong> <span id="modalPizzaPrice"></span></p>
+                <p><strong>Вес:</strong> <span id="modalPizzaWeight"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <style>
-    .pizza-title-link {
+    .pizza-title {
         text-decoration: none;
         color: inherit;
         display: block;
         text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 10px 0;
     }
 
-        .pizza-title-link h3 {
-            transition: all 0.3s ease;
-            margin: 10px 0;
-        }
-
-        .pizza-title-link:hover h3 {
+        .pizza-title:hover {
             color: #27ae60;
             transform: scale(1.05);
         }
-</style>        
+</style>

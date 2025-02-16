@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Task3.Repositories;
-using Task3.Models;
 
 namespace Task3.Controllers
 {
@@ -55,5 +54,6 @@ namespace Task3.Controllers
 
             return View(pizza);
         }
+
     }
 }
