@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Task3.Repositories;
+using Task3.Models;
 
 namespace Task3.Controllers
 {
@@ -13,6 +14,12 @@ namespace Task3.Controllers
         }
 
         public IActionResult Index()
+        {
+            var pizzas = _pizzaRepository.GetAllPizzas();
+            return View(pizzas);
+        }
+
+        public IActionResult IndexNew()
         {
             var pizzas = _pizzaRepository.GetAllPizzas();
             return View(pizzas);
@@ -39,10 +46,9 @@ namespace Task3.Controllers
 
         public IActionResult Detail(int id)
         {
-            PizzaRepository pizzaRepository = new PizzaRepository();
-            var pizza = pizzaRepository.FindById(id);
+            var pizza = _pizzaRepository.FindById(id);
 
-            if (pizza == null) 
+            if (pizza == null)
             {
                 return NotFound();
             }

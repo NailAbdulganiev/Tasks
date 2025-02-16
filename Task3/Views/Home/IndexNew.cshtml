@@ -8,19 +8,17 @@
 
         <div class="pizza-tile" id="pizza_@i">
             <img src="@Url.Content(pizza.ImageUrl)" alt="@pizza.Name" class="pizza-image clickable-image" data-pizza-id=@i>
-            <a href="@Url.Action("Detail", "Home", new { id = pizza.Id })" class="pizza-title-link">
-                <h3>@pizza.Name</h3>
-            </a>
+            <h3>@pizza.Name</h3>
             <p>@pizza.Description</p>
 
             <div class="size-selector">
                 @foreach (var size in new[] { 30, 40, 60 })
                 {
                     var isAvailable = pizza.SizeToPrice.ContainsKey(size);
-                    
-                    <input type="radio" id="size_@i@size" name="size_@i" value="@size" data-price="@(isAvailable ? pizza.SizeToPrice[size] : 0)" 
-                    data-weight="@(isAvailable ? pizza.SizeToWeight[size] : 0)" @(isAvailable ? "" : "disabled")  @(size == firstAvailableSize ? "checked" : "") />
-                    <label for="size_@i@size" 
+
+                    <input type="radio" id="size_@i@size" name="size_@i" value="@size" data-price="@(isAvailable ? pizza.SizeToPrice[size] : 0)"
+                           data-weight="@(isAvailable ? pizza.SizeToWeight[size] : 0)" @(isAvailable ? "" : "disabled") @(size == firstAvailableSize ? "checked" : "") />
+                    <label for="size_@i@size"
                            style="@(!isAvailable ? "color:gray;opacity:0.5;pointer-events:none" : "")">
                         @size см
                     </label>
