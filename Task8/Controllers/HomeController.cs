@@ -87,22 +87,5 @@ namespace Task3.Controllers
                 return StatusCode(500, new { error = "Произошла ошибка при загрузке данных о пицце." });
             }
         }
-
-        [HttpGet]
-        public IActionResult TestException()
-        {
-            try
-            {
-                _logger.LogInformation("Запуск тестового метода исключения в контроллере.");
-                var pizza = new PizzaModel();
-                pizza.ThrowTestException();
-                return Ok("Этот код не выполнится из-за исключения.");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Ошибка в методе TestException контроллера.");
-                return StatusCode(500, "Произошла тестовая ошибка.");
-            }
-        }
     }
 }

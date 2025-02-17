@@ -1,32 +1,34 @@
-﻿using NLog;
-using System.Reflection;
+﻿using Task8.Models;
 
-namespace Task3.Models
+public class PizzaModel
 {
-    public class PizzaModel
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public string ImageUrl { get; set; } = string.Empty;
+    public Dictionary<int, int> SizeToPrice { get; set; } = new();
+    public Dictionary<int, int> SizeToWeight { get; set; } = new();
+    public bool IsDoughTraditional { get; set; }
+
+    public PizzaModel(Pizzas pizza)
     {
-        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+        Id = pizza.Id;
+        Name = pizza.Name;
+        Description = pizza.Description;
+        ImageUrl = pizza.ImageUrl;
 
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public string ImageUrl { get; set; } = string.Empty;
-        public Dictionary<int, int> SizeToPrice { get; set; } = new Dictionary<int, int>();
-        public Dictionary<int, int> SizeToWeight { get; set; } = new Dictionary<int, int>();
-        public string[] DoughTypes { get; set; } = ["Традиционное", "Толстое"];
-
-        public void ThrowTestException()
+        // Заполняем словари
+        if (pizza.PizzaSizes != null)
         {
-            try
+            foreach (var size in pizza.PizzaSizes)
             {
-                throw new Exception("Тестовое исключение в PizzaModel.");
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Ошибка в PizzaModel: {MethodName}", MethodBase.GetCurrentMethod()?.Name);
-                throw;
+                if (size.IsDoughTraditional)
+                {
+                    SizeToPrice[size.Size] = size.Price;
+                    SizeToWeight[size.Size] = size.Weight;
+                }
             }
         }
     }
+    public PizzaModel() { }
 }
-    

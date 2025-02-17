@@ -1,6 +1,8 @@
+using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
 using Task3.Repositories;
+using Task8.Models;
 
 var logger = LogManager.Setup().LoadConfigurationFromFile("nlog.config").GetCurrentClassLogger();
 
@@ -12,6 +14,9 @@ try
 
     builder.Logging.ClearProviders();
     builder.Host.UseNLog();
+
+    builder.Services.AddDbContext<PizzaDbContext>(options =>
+    options.UseSqlServer("Server=desktop-mv7qrea;Database=PizzaDb;Trusted_Connection=True;TrustServerCertificate=True;"));
 
     builder.Services.AddControllersWithViews();
     builder.Services.AddScoped<IPizzaRepository, PizzaRepository>();

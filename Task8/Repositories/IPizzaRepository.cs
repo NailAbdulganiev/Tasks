@@ -6,6 +6,8 @@ namespace Task3.Repositories
     public interface IPizzaRepository
     {
         List<PizzaModel> GetAllPizzas();
-        PizzaModel FindById(int id);
+        PizzaModel? FindById(int id);
     }
+
+
 }
