@@ -1,0 +1,54 @@
+﻿@model Task8.Models.PizzaModel
+
+<div class="container mt-5">
+    <h2 class="mb-4">@((Model.Id == 0) ? "Добавить пиццу" : "Редактировать пиццу")</h2>
+
+    <form asp-action="CreateOrEdit" method="post" enctype="multipart/form-data" class="row g-3">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="col-md-12">
+            <label asp-for="Name" class="form-label">Название пиццы</label>
+            <input asp-for="Name" class="form-control" placeholder="Введите название пиццы" required />
+        </div>
+
+        <div class="col-md-12">
+            <label asp-for="Description" class="form-label">Описание</label>
+            <input asp-for="Description" class="form-control" placeholder="Введите описание" required />
+        </div>
+
+        <div class="col-md-12">
+            <label for="imageFile" class="form-label">Загрузить изображение</label>
+            <input type="file" name="imageFile" class="form-control" />
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <div class="col-md-12">
+                <label class="form-label">Текущее изображение</label>
+                <img src="@Model.ImageUrl" alt="Изображение пиццы" class="img-fluid" style="max-width: 200px;" />
+            </div>
+        }
+
+        <h4 class="mt-4">Укажите цену и вес для размеров</h4>
+
+        @foreach (var size in new int[] { 30, 40, 60 })
+        {
+            <div class="col-md-6">
+                <label for="SizeToPrice[@size]" class="form-label">Цена (@size см)</label>
+                <input type="number" name="SizeToPrice[@size]" class="form-control"
+                       value="@(Model.SizeToPrice.ContainsKey(size) ? Model.SizeToPrice[size] : 0)" required />
+            </div>
+            <div class="col-md-6">
+                <label for="SizeToWeight[@size]" class="form-label">Вес (@size см, г)</label>
+                <input type="number" name="SizeToWeight[@size]" class="form-control"
+                       value="@(Model.SizeToWeight.ContainsKey(size) ? Model.SizeToWeight[size] : 0)" required />
+            </div>
+        }
+
+        <div class="col-12 mt-4">
+            <button type="submit" class="btn btn-primary btn-lg">
+                @((Model.Id == 0) ? "Добавить пиццу" : "Сохранить изменения")
+            </button>
+        </div>
+    </form>
+</div>

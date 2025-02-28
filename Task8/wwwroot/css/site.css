@@ -175,3 +175,106 @@ input[type="radio"] {
     .clickable-image:hover {
         transform: scale(1.03);
     }
+
+.pizza-title-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    text-align: center;
+}
+
+    .pizza-title-link h3 {
+        transition: all 0.3s ease;
+        margin: 10px 0;
+    }
+
+    .pizza-title-link:hover h3 {
+        color: #27ae60;
+        transform: scale(1.05);
+    }
+
+.tile-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.btn-edit, .btn-delete {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 10px;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 1em;
+}
+
+.btn-edit {
+    background: #f1c40f;
+    color: black;
+}
+
+    .btn-edit:hover {
+        background: #d4ac0d;
+    }
+
+.btn-delete {
+    background: #e74c3c;
+    border: none;
+}
+
+    .btn-delete:hover {
+        background: #c0392b;
+    }
+
+.add-pizza {
+    flex: 1 1 calc(25% - 10px);
+    max-width: calc(25% - 10px);
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 3px dashed #27ae60;
+    border-radius: 15px;
+    color: #27ae60;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+
+    .add-pizza:hover {
+        background: #27ae60;
+        color: white;
+    }
+
+.add-text {
+    margin-top: 10px;
+}
+
+@media (max-width: 1024px) {
+    .add-pizza {
+        flex: 1 1 calc(33.33% - 10px);
+        max-width: calc(33.33% - 10px);
+    }
+}
+
+@media (max-width: 768px) {
+    .add-pizza {
+        flex: 1 1 calc(50% - 10px);
+        max-width: calc(50% - 10px);
+    }
+}
+
+@media (max-width: 480px) {
+    .add-pizza {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}

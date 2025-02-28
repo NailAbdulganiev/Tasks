@@ -23,24 +23,15 @@ $(document).ready(function () {
         $("#pizzaModal").modal("show");
     }
 
-    $(document).on("click", ".pizza-title", function () {
+
+    $(document).on("click", ".pizza-title, .clickable-image", function () {
         var pizzaTile = $(this).closest(".pizza-tile");
+        var pizzaId = pizzaTile.attr("data-pizza-id");
 
-        var pizza = {
-            name: $(this).text(),
-            imageUrl: pizzaTile.find(".pizza-image").attr("src"),
-            description: pizzaTile.find(".pizza-description").text(),
-            price: pizzaTile.find(".price").text(),
-            weight: pizzaTile.find(".weight").text(),
-            dough: pizzaTile.find(".dough-selector input:checked").val()
-        };
+        if (!pizzaId) {
+            return;
+        }
 
-        ShowPizza(pizza);
-    });
-
-    $(document).on("click", ".clickable-image", function () {
-        var pizzaTile = $(this).closest(".pizza-tile");
-        var pizzaId = $(this).data("pizza-id");
         var selectedSize = pizzaTile.find(".size-selector input:checked").val();
         var selectedDough = pizzaTile.find(".dough-selector input:checked").val();
 
@@ -50,9 +41,10 @@ $(document).ready(function () {
             data: { id: pizzaId },
             dataType: "json",
             success: function (pizza) {
-                if (!selectedSize) {
+                if (!selectedSize || !(selectedSize in pizza.sizeToPrice)) {
                     selectedSize = Object.keys(pizza.sizeToPrice)[0];
                 }
+
                 var updatedPizza = {
                     name: pizza.name,
                     imageUrl: pizza.imageUrl,
@@ -65,6 +57,7 @@ $(document).ready(function () {
                 ShowPizza(updatedPizza);
             },
             error: function () {
+                console.error("Ошибка при загрузке данных о пицце.");
                 alert("Ошибка при загрузке данных о пицце.");
             }
         });

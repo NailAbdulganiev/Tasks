@@ -22,13 +22,6 @@ namespace Task8.Controllers
             return View(pizzas);
         }
 
-        public IActionResult IndexNew()
-        {
-            _logger.LogInformation("Запрос на получение списка пицц (IndexNew).");
-            var pizzas = _pizzaRepository.GetAllPizzas();
-            return View(pizzas);
-        }
-
         public IActionResult Privacy()
         {
             _logger.LogInformation("Переход на страницу Privacy.");
@@ -49,6 +42,12 @@ namespace Task8.Controllers
                 _logger.LogError(ex, "Ошибка при получении списка пицц.");
                 return StatusCode(500, new { error = "Произошла ошибка при загрузке списка пицц." });
             }
+        }
+        public IActionResult IndexNew()
+        {
+            _logger.LogInformation("Запрос на получение списка пицц (IndexNew).");
+            var pizzas = _pizzaRepository.GetAllPizzas();
+            return View(pizzas);
         }
 
         public IActionResult Detail(int id)
@@ -89,21 +88,45 @@ namespace Task8.Controllers
         }
 
         [HttpGet]
-        public IActionResult TestException()
+        public IActionResult CreateOrEdit(int? id)
         {
-            try
-            {
+            if (id == null)
+                return View(new PizzaModel());
 
-                _logger.LogInformation("Запуск тестового метода исключения в контроллере.");
-                var pizza = new PizzaModel();
-                pizza.ThrowTestException();
-                return Ok("Этот код не выполнится из-за исключения.");
-            }
-            catch (Exception ex)
+            var pizza = _pizzaRepository.FindById(id.Value);
+            if (pizza == null)
+                return NotFound();
+
+            return View(pizza);
+        }
+
+        [HttpPost]
+        public IActionResult CreateOrEdit(PizzaModel pizza, IFormFile? imageFile)
+        {
+            if (!ModelState.IsValid)
+                return View(pizza);
+
+            if (pizza.Id == 0)
             {
-                _logger.LogError(ex, "Ошибка в методе TestException контроллера.");
-                return StatusCode(500, "Произошла тестовая ошибка.");
+                _pizzaRepository.AddPizza(pizza, imageFile);
             }
+            else
+            {
+                _pizzaRepository.UpdatePizza(pizza, imageFile);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var pizza = _pizzaRepository.FindById(id);
+            if (pizza == null)
+                return NotFound();
+
+            _pizzaRepository.DeletePizza(id);
+            return RedirectToAction("Index");
         }
     }
 }
