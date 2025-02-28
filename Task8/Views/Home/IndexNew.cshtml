@@ -1,14 +1,16 @@
-﻿@model List<PizzaModel>
+﻿@using Task8.Models
+@model List<PizzaModel>
 
 <div class="pizza-container">
-    @for (int i = 0; i < Model.Count; i++)
+    @for (int i = 0; i < Model.Count(); i++)
     {
         var pizza = Model[i];
         var firstAvailableSize = pizza.SizeToPrice.Keys.First();
 
-        <div class="pizza-tile" id="pizza_@i">
-            <img src="@Url.Content(pizza.ImageUrl)" alt="@pizza.Name" class="pizza-image clickable-image" data-pizza-id=@i>
-            <h3 class="pizza-title" data-index="@i">@pizza.Name</h3>
+        <div class="pizza-tile" id="pizza_@pizza.Id" data-pizza-id="@pizza.Id">
+            <img src="@Url.Content(pizza.ImageUrl)" alt="@pizza.Name"
+                 class="pizza-image clickable-image" data-pizza-id="@pizza.Id">
+            <h3 class="pizza-title" data-pizza-id="@pizza.Id">@pizza.Name</h3>
             <p class="pizza-description">@pizza.Description</p>
 
             <div class="size-selector">
@@ -16,9 +18,11 @@
                 {
                     var isAvailable = pizza.SizeToPrice.ContainsKey(size);
 
-                    <input type="radio" id="size_@i@size" name="size_@i" value="@size" data-price="@(isAvailable ? pizza.SizeToPrice[size] : 0)"
-                           data-weight="@(isAvailable ? pizza.SizeToWeight[size] : 0)" @(isAvailable ? "" : "disabled") @(size == firstAvailableSize ? "checked" : "") />
-                    <label for="size_@i@size"
+                    <input type="radio" id="size_@pizza.Id@size" name="size_@pizza.Id"
+                           value="@size" data-price="@(isAvailable ? pizza.SizeToPrice[size] : 0)"
+                           data-weight="@(isAvailable ? pizza.SizeToWeight[size] : 0)"
+                    @(isAvailable ? "" : "disabled") @(size == firstAvailableSize ? "checked" : "") />
+                    <label for="size_@pizza.Id@size"
                            style="@(!isAvailable ? "color:gray;opacity:0.5;pointer-events:none" : "")">
                         @size см
                     </label>
@@ -28,8 +32,9 @@
             <div class="dough-selector">
                 @foreach (var dough in pizza.DoughTypes)
                 {
-                    <input type="radio" id="dough_@i@dough" name="dough_@i" value="@dough" @(dough == pizza.DoughTypes.First() ? "checked" : "")>
-                    <label for="dough_@i@dough">@dough</label>
+                    <input type="radio" id="dough_@pizza.Id@dough" name="dough_@pizza.Id"
+                           value="@dough" @(dough == pizza.DoughTypes.First() ? "checked" : "")>
+                    <label for="dough_@pizza.Id@dough">@dough</label>
                 }
             </div>
 

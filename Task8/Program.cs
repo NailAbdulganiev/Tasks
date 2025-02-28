@@ -1,6 +1,8 @@
+using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
-using Task3.Repositories;
+using Task8.Models;
+using Task8.Repositories;
 
 var logger = LogManager.Setup().LoadConfigurationFromFile("nlog.config").GetCurrentClassLogger();
 
@@ -12,9 +14,11 @@ try
 
     builder.Logging.ClearProviders();
     builder.Host.UseNLog();
-
+    builder.Services.AddDbContext<PizzaDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
     builder.Services.AddControllersWithViews();
     builder.Services.AddScoped<IPizzaRepository, PizzaRepository>();
+    
 
     builder.Services.AddCors(options =>
     {

@@ -1,7 +1,7 @@
 ﻿using NLog;
 using System.Reflection;
 
-namespace Task3.Models
+namespace Task8.Models
 {
     public class PizzaModel
     {
@@ -14,6 +14,27 @@ namespace Task3.Models
         public Dictionary<int, int> SizeToPrice { get; set; } = new Dictionary<int, int>();
         public Dictionary<int, int> SizeToWeight { get; set; } = new Dictionary<int, int>();
         public string[] DoughTypes { get; set; } = ["Традиционное", "Толстое"];
+
+        public PizzaModel(Pizza pizza)
+        {
+            Id = pizza.Id;
+            Name = pizza.Name;
+            Description = pizza.Description;
+            ImageUrl = pizza.ImageUrl;
+            SizeToPrice = new Dictionary<int, int>();
+            SizeToWeight = new Dictionary<int, int>();
+
+            if (pizza.PizzaSizes != null)
+            {
+                foreach (var size in pizza.PizzaSizes)
+                {
+                    SizeToPrice[size.Size] = size.Price;
+                    SizeToWeight[size.Size] = size.Weight;
+                }
+            }
+        }
+
+        public PizzaModel() { }
 
         public void ThrowTestException()
         {

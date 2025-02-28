@@ -1,11 +1,11 @@
-﻿using Task3.Models;
+﻿using Task8.Models;
 using System.Collections.Generic;
 
-namespace Task3.Repositories
+namespace Task8.Repositories
 {
     public interface IPizzaRepository
     {
         List<PizzaModel> GetAllPizzas();
-        PizzaModel FindById(int id);
+        PizzaModel? FindById(int id);
     }
 }

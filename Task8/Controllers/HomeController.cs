@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using Task3.Models;
-using Task3.Repositories;
+using Task8.Models;
+using Task8.Repositories;
 
-namespace Task3.Controllers
+namespace Task8.Controllers
 {
     public class HomeController : Controller
     {
@@ -31,7 +31,7 @@ namespace Task3.Controllers
 
         public IActionResult Privacy()
         {
-            _logger.LogInformation("Переход на страницу конфиденциальности.");
+            _logger.LogInformation("Переход на страницу Privacy.");
             return View();
         }
 
@@ -93,6 +93,7 @@ namespace Task3.Controllers
         {
             try
             {
+
                 _logger.LogInformation("Запуск тестового метода исключения в контроллере.");
                 var pizza = new PizzaModel();
                 pizza.ThrowTestException();
