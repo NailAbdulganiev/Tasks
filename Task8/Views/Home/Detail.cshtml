@@ -1,0 +1,227 @@
+﻿@using Task8.Models
+@model PizzaModel
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="pizza-detail-container">
+    <div class="pizza-tile-expanded">
+        <img src="../../@Model.ImageUrl" alt="@Model.Name" class="pizza-image-expanded">
+        <h3>@Model.Name</h3>
+        <p class="pizza-description-expanded">@Model.Description</p>
+
+        <div class="size-selector-expanded">
+            @foreach (var size in new[] { 30, 40, 60 })
+            {
+                var isAvailable = Model.SizeToPrice.ContainsKey(size);
+                <div class="size-option-expanded">
+                    <input type="radio" id="size_@size" name="size" value="@size" data-price="@(isAvailable ? Model.SizeToPrice[size] : 0)" 
+                    data-weight="@(isAvailable ? Model.SizeToWeight[size] : 0)"
+                    @(isAvailable ? "" : "disabled")
+                    @(size == Model.SizeToPrice.Keys.First() ? "checked" : "") />
+                    <label for="size_@size" style="@(!isAvailable ? "color:gray;opacity:0.5;pointer-events:none" : "")">
+                        @size см
+                    </label>
+                </div>
+            }
+        </div>
+
+        <div class="dough-selector-expanded">
+            @foreach (var dough in Model.DoughTypes)
+            {
+                <div class="dough-option-expanded">
+                    <input type="radio" id="dough_@dough" name="dough" value="@dough"
+                    @(dough == Model.DoughTypes.First() ? "checked" : "")>
+                    <label for="dough_@dough">@dough</label>
+                </div>
+            }
+        </div>
+
+        <div class="price-weight-expanded">
+            <span class="price">@Model.SizeToPrice[Model.SizeToPrice.Keys.First()]₽</span>
+            <span class="weight">@Model.SizeToWeight[Model.SizeToWeight.Keys.First()] гр</span>
+        </div>
+
+        <button class="add-to-cart-expanded">В корзину</button>
+    </div>
+</div>
+
+<style>
+    .pizza-detail-container {
+        max-width: 1200px;
+        margin: 1rem auto;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .pizza-tile-expanded {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border: 3px solid transparent;
+        transition: all 0.3s ease;
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+    }
+
+
+        .pizza-tile-expanded:hover {
+            border-color: green;
+            transform: translateY(-5px);
+        }
+
+    .pizza-image-expanded {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        border-radius: 50%;
+        margin: 0 auto 20px;
+        display: block;
+    }
+
+    .pizza-title-link h3 {
+        font-size: 2rem;
+        color: #333;
+        text-align: center;
+        margin-bottom: 1rem;
+        text-decoration: none;
+    }
+
+    .pizza-description-expanded {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #666;
+        text-align: center;
+        margin-bottom: 2rem;
+        max-width: 500px; 
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0 15px;
+    }
+
+
+    .size-selector-expanded,
+    .dough-selector-expanded {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin: 20px 0;
+        flex-wrap: wrap;
+    }
+
+    .size-option-expanded label,
+    .dough-option-expanded label {
+        padding: 10px 20px;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .size-option-expanded input:checked + label,
+    .dough-option-expanded input:checked + label {
+        background: #ffcc00;
+        border-color: #ff9900;
+    }
+
+    .price-weight-expanded {
+        text-align: center;
+        margin: 25px 0;
+    }
+
+        .price-weight-expanded .price {
+            font-size: 2rem;
+            color: red;
+            margin-right: 15px;
+        }
+
+        .price-weight-expanded .weight {
+            font-size: 1.2rem;
+            color: #666;
+            vertical-align: super;
+        }
+
+    .add-to-cart-expanded {
+        display: block;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+        padding: 15px 30px;
+        font-size: 1.2rem;
+        background: green;
+        color: white;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+        .add-to-cart-expanded:hover {
+            background: darkgreen;
+        }
+
+    @@media (max-width: 768px) {
+        .pizza-tile-expanded {
+            max-width: 300px;
+            padding: 20px;
+        }
+
+        .pizza-image-expanded {
+            max-width: 250px;
+        }
+
+        .pizza-description-expanded {
+            max-width: 280px;
+            font-size: 1rem;
+            line-height: 1.5;
+            padding: 0 10px;
+        }
+
+        .size-option-expanded label,
+        .dough-option-expanded label {
+            padding: 6px 12px;
+            font-size: 0.85rem;
+        }
+
+        .price-weight-expanded .price {
+            font-size: 1.4rem;
+        }
+
+        .add-to-cart-expanded {
+            max-width: 250px;
+            padding: 12px 20px;
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.size-selector-expanded input').forEach(input => {
+            input.addEventListener('change', function() {
+                const priceElement = document.querySelector('.price-weight-expanded .price');
+                const weightElement = document.querySelector('.price-weight-expanded .weight');
+                priceElement.textContent = `${this.dataset.price}₽`;
+                weightElement.textContent = `${this.dataset.weight} гр`;
+            });
+        });
+
+        document.querySelector('.add-to-cart-expanded').addEventListener('click', function() {
+            const pizzaId = @Model.Id;
+            const size = document.querySelector('.size-selector-expanded input:checked').value;
+            const dough = document.querySelector('.dough-selector-expanded input:checked').value;
+
+            console.log({
+                pizzaId: pizzaId,
+                size: size,
+                dough: dough
+            });
+
+            alert('Пицца добавлена в корзину!');
+        });
+    });
+</script>
