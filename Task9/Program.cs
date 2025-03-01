@@ -15,7 +15,7 @@ try
     builder.Logging.ClearProviders();
     builder.Host.UseNLog();
     builder.Services.AddDbContext<PizzaDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
     builder.Services.AddControllersWithViews();
     builder.Services.AddScoped<IPizzaRepository, PizzaRepository>();
     
